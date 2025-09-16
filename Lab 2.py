@@ -1,23 +1,24 @@
 # File Copying
 
+import shutil
 import os
 
-def copy_file(src, dst):
-    # Open source file (read-only)
-    fd_src = os.open(src, os.O_RDONLY)
+# Source folder (the folder you want to copy)
+src_folder = r"C:\Users\Dell\Desktop\New folder"
 
-    # Open destination file (write-only, create if not exists, truncate)
-    fd_dst = os.open(dst, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o644)
+# Destination folder (the new copy location)
+dst_folder = r"C:\Users\Dell\Desktop\y.txt"
 
-    while True:
-        data = os.read(fd_src, 1024)  # Read 1KB chunks
-        if not data:
-            break
-        os.write(fd_dst, data)  # Write to destination
+try:
+        # Copy entire folder including all files and subfolders
+        shutil.copytree(src_folder, dst_folder)
+        print(f"Folder copied successfully from:\n{src_folder}\n to\n{dst_folder}")
 
-    os.close(fd_src)
-    os.close(fd_dst)
-    print(f"Copied content from {src} to {dst}")
-
-if _name_ == "_main_":
-    copy_file("source.txt", "destination.txt")
+        # Show contents of the copied folder
+        print("\nFiles in destination folder:")
+        for root, dirs, files in os.walk(dst_folder):
+            for file in files:
+                print(os.path.join(root, file))
+except Exception as e:
+    print("Error:", e)
+    
