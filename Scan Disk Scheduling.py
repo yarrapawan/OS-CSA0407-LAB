@@ -50,4 +50,3 @@ else:
 # Output
 print("\nSeek Sequence:", seek_sequence)
 print("Total Seek Time:", seek_time)
-print("Average Seek Time:", seek_time / size)
